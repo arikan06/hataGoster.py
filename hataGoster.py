@@ -58,15 +58,15 @@ pencere.setWindowIcon(QtGui.QIcon(gorsel))
 pencere.setGeometry(200,200,300,300)
 pencere.setWindowTitle("hataGoster.py")
 
-hataGosterIcerikVeri = QLineEdit(pencere)
-hataGosterIcerikVeri.move(20, 40)
-hataGosterIcerikVeri.setPlaceholderText('Gösterilecek hatayı giriniz.')
-hataGosterIcerikVeri.resize(200, 30)
-
 hataGosterBaslikVeri = QLineEdit(pencere)
-hataGosterBaslikVeri.move(20, 80)
+hataGosterBaslikVeri.move(20, 40)
 hataGosterBaslikVeri.setPlaceholderText('Gösterilecek başlığı giriniz.')
 hataGosterBaslikVeri.resize(200, 30)
+
+hataGosterIcerikVeri = QLineEdit(pencere)
+hataGosterIcerikVeri.move(20, 80)
+hataGosterIcerikVeri.setPlaceholderText('Gösterilecek hatayı giriniz.')
+hataGosterIcerikVeri.resize(200, 30)
 
 hataGosterTus = QPushButton(pencere)
 hataGosterTus.setText('Hatayı göster')
