@@ -4,6 +4,7 @@ try:
 except Exception as e:
     print(e)
 try:
+    from PyQt5.QtCore import QSize
     from PyQt5 import QtWidgets, QtGui
     from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QMessageBox, QPushButton, QInputDialog, QLineEdit
 except ModuleNotFoundError as e:
@@ -36,6 +37,10 @@ def hataGoster():
     try:
         hataGosterIcerikVeriEsit = hataGosterIcerikVeri.text()
         hataGosterBaslikVeriEsit = hataGosterBaslikVeri.text()
+        if hataGosterIcerikVeriEsit == ' ':
+            hataGosterIcerikVeriEsit = '[boş]'
+        if hataGosterBaslikVeriEsit == ' ':
+            hataGosterBaslikVeriEsit = '[boş]'
         hata = QMessageBox()
         hata.setWindowTitle(hataGosterBaslikVeriEsit)
         hata.setText(hataGosterIcerikVeriEsit)
@@ -56,6 +61,7 @@ uygulama = QApplication(sys.argv)
 pencere = QMainWindow()
 pencere.setWindowIcon(QtGui.QIcon(gorsel))
 pencere.setGeometry(200,200,300,300)
+pencere.setMinimumSize(QSize(700,400))
 pencere.setWindowTitle("hataGoster.py")
 
 hataGosterBaslikVeri = QLineEdit(pencere)
