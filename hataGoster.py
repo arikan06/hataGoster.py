@@ -21,23 +21,23 @@ except FileNotFoundError:
     print('ayarlar.json bulunamadı, ayarlar.json yaratılıyor..')
     with open('ayarlar.json','w') as f:
         ayarlarYazdir = {
-         "gorsel" : "hataGoster.png"
+         "gorsel" : "mertfsmal.png"
         }
         json.dump(ayarlarYazdir, f)
         print("ayarlar.json yaratıldı")
         print('----------------------------------------------')
         pass
 except Exception as e:
+    print('json hatası')
     print(e)
-    input('')
-
-gorsel = ayarlarJson['gorsel']
+    input()
 
 def gorseliGoster():
     w = AnotherWindow()
     w.show()
 
 def hataGoster():
+    gorsel = ayarlarJson['gorsel']
     try:
         hataGosterIcerikVeriEsit = hataGosterIcerikVeri.text()
         hataGosterBaslikVeriEsit = hataGosterBaslikVeri.text()
@@ -50,19 +50,44 @@ def hataGoster():
         hata.setText(hataGosterIcerikVeriEsit)
         hata.setIcon(QMessageBox.Critical)
         hata.setStandardButtons(QMessageBox.Cancel)
-        hata.setWindowIcon(QtGui.QIcon(gorsel))
+        try:
+            hata.setWindowIcon(QtGui.QIcon(gorsel))
+        except Exception as e:
+            pass
         hataGosterGoster = hata.exec_()
     except Exception as e:
         print(e)
         input()
 
+def sistemBildiri():
+    bildiri = QMessageBox()
+    bildiri.setWindowTitle('hataGoster.py')
+    bildiriKodu = 'İşlem başarıyla tamamlandı.'
+    bildiri.setText(bildiriKodu)
+    bildiri.setIcon(QMessageBox.Information)
+    bildiri.setStandardButtons(QMessageBox.Ok)
+    bildiri.setWindowIcon(QtGui.QIcon('mertfsmal.png'))
+    bildiriGoster = bildiri.exec_()
+
+def gorseliKaldir():
+    with open('ayarlar.json','w') as f:
+        ayarlarYazdir = {
+         "gorsel" : ""
+        }
+        json.dump(ayarlarYazdir, f)
+        sistemBildiri()
 def gorseliDegistir():
-    text, ok = QInputDialog.getText('input dialog', 'Is this ok?')
-        if ok:
-            print(text)
+    yeniGorsel, ok = QInputDialog.getText(pencere, 'Görseli değiştir', 'Görselin yolunu girin.')
+    if ok:
+        with open('ayarlar.json','w') as f:
+            ayarlarYazdir = {
+             "gorsel" : yeniGorsel
+            }
+            json.dump(ayarlarYazdir, f)
+            sistemBildiri()
 uygulama = QApplication(sys.argv)
 pencere = QMainWindow()
-pencere.setWindowIcon(QtGui.QIcon(gorsel))
+pencere.setWindowIcon(QtGui.QIcon('mertfsmal.png'))
 pencere.setGeometry(200,200,300,300)
 pencere.setMinimumSize(QSize(700,400))
 pencere.setWindowTitle("hataGoster.py")
@@ -94,6 +119,12 @@ gorselTus.setText('Görseli değiştir')
 gorselTus.clicked.connect(gorseliDegistir)
 gorselTus.resize(180,30)
 gorselTus.move(20,280)
+
+gorselKaldirTus = QPushButton(pencere)
+gorselKaldirTus.setText('Görseli kaldır')
+gorselKaldirTus.clicked.connect(gorseliKaldir)
+gorselKaldirTus.resize(180,30)
+gorselKaldirTus.move(20,320)
 
 simgeTus = QPushButton(pencere)
 simgeTus.setText('Simge')
