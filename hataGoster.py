@@ -1,3 +1,5 @@
+#buttonReply = QMessageBox.question(self, 'PyQt5 message', "Do you like PyQt5?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+#hata.setStyleSheet("QLabel{min-width: 700px;}")
 try:
     import sys
     import json
@@ -48,7 +50,8 @@ def hataGoster():
         hata = QMessageBox()
         hata.setWindowTitle(hataGosterBaslikVeriEsit)
         hata.setText(hataGosterIcerikVeriEsit)
-        hata.setIcon(QMessageBox.Critical)
+        hataGosterSimge = QMessageBox.Critical
+        hata.setIcon(hataGosterSimge)
         hata.setStandardButtons(QMessageBox.Cancel)
         try:
             hata.setWindowIcon(QtGui.QIcon(gorsel))
@@ -58,6 +61,9 @@ def hataGoster():
     except Exception as e:
         print(e)
         input()
+
+def kritikSimge():
+    hataGosterSimge = QMessageBox.Critical
 
 def sistemBildiri():
     bildiri = QMessageBox()
@@ -126,11 +132,30 @@ gorselKaldirTus.clicked.connect(gorseliKaldir)
 gorselKaldirTus.resize(180,30)
 gorselKaldirTus.move(20,320)
 
+
 simgeTus = QPushButton(pencere)
-simgeTus.setText('Simge')
-simgeTus.clicked.connect(gorseliDegistir)
+simgeTus.setText('Soru simgesi')
+simgeTus.clicked.connect(gorseliGoster)
 simgeTus.resize(180,30)
-simgeTus.move(220,280)
+simgeTus.move(220,80)
+
+simgeTus = QPushButton(pencere)
+simgeTus.setText('Bilgilendirme Simgesi')
+simgeTus.clicked.connect(gorseliGoster)
+simgeTus.resize(180,30)
+simgeTus.move(220,120)
+
+simgeTus = QPushButton(pencere)
+simgeTus.setText('Uyarı Simgesi')
+simgeTus.clicked.connect(gorseliGoster)
+simgeTus.resize(180,30)
+simgeTus.move(220,160)
+
+simgeTus = QPushButton(pencere)
+simgeTus.setText('Kritik simgesi')
+simgeTus.clicked.connect(kritikSimge)
+simgeTus.resize(180,30)
+simgeTus.move(220,200)
 
 gorselIcerik = QLabel(pencere)
 gorselIcerik.setText(ayarlarJson['gorsel'])
